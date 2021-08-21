@@ -168,12 +168,12 @@
                         if (randomno == 0) {
                             let max = Math.max(userinput, systeminput);
                             if (max == userinput) {
-                                document.getElementById('desider').innerHTML = "This Time Maximum <br><br>" + "So The Winner is " + name + "</span> : " + max
+                                document.getElementById('desider').innerHTML = "Umpire decision  Maximum <br><br>" + "So The Winner is " + name + "</span> : " + max
                                 userscores++
                                 document.getElementById('userscore').innerHTML = "your score : " + userscores;
 
                             } else {
-                                document.getElementById('desider').innerHTML = "This Time Maximum <br><br>" + "So The Winner is  computerji is : " + max
+                                document.getElementById('desider').innerHTML = "Umpire decision  Maximum <br><br>" + "So The Winner is  computerji is : " + max
                                 systemscores++
                                 document.getElementById('systemscore').innerHTML = "system score : " + systemscores;
                             }
@@ -182,11 +182,11 @@
                         } else {
                             let min = Math.min(userinput, systeminput);
                             if (min == userinput) {
-                                document.getElementById('desider').innerHTML = "This Time Minimum <br><br>" + "So The Winner is " + name + " : " + min
+                                document.getElementById('desider').innerHTML = "Umpire decision  Minimum <br><br>" + "So The Winner is " + name + " : " + min
                                 userscores++
                                 document.getElementById('userscore').innerHTML = "your score : " + userscores;
                             } else {
-                                document.getElementById('desider').innerHTML = "This Time Minimum <br><br>" + "So The Winner is  computerji  : " + min
+                                document.getElementById('desider').innerHTML = "Umpire decision  Minimum <br><br>" + "So The Winner is  computerji  : " + min
                                 systemscores++
                                 document.getElementById('systemscore').innerHTML = "system score : " + systemscores;
                             }
