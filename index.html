@@ -143,51 +143,55 @@
             document.getElementById('name').readOnly = true;
 
             let userinput = document.getElementById('input').value;
-            if (userinput == "") {
-                alert("ent6er number")
+            if (userinput > 500) {
+                alert("enter number between 0 to 500")
             } else {
-                document.getElementById('resultline1').innerHTML = name + " your number is : " + userinput
-                let systeminput = Math.floor(Math.random() * 101);
-                document.getElementById('resultline2').innerHTML = "Computerji's number is : " + systeminput
-
-                let randomno = Math.floor(Math.random() * 2);
-
-
-                if (userinput == systeminput) {
-                    document.getElementById('desider').innerHTML = "both values are same :)"
-
+                if (userinput == "") {
+                    alert("enter number")
                 } else {
+                    document.getElementById('resultline1').innerHTML = name + " your number is : " + userinput
+                    let systeminput = Math.floor(Math.random() * 101);
+                    document.getElementById('resultline2').innerHTML = "Computerji's number is : " + systeminput
 
-                    if (randomno == 0) {
-                        let max = Math.max(userinput, systeminput);
-                        if (max == userinput) {
-                            document.getElementById('desider').innerHTML = "This Time Maximum <br><br>" + "So The Winner is " + name + "</span> : " + max
-                            userscores++
-                            document.getElementById('userscore').innerHTML = "your score : " + userscores;
+                    let randomno = Math.floor(Math.random() * 2);
 
-                        } else {
-                            document.getElementById('desider').innerHTML = "This Time Maximum <br><br>" + "So The Winner is  computerji is : " + max
-                            systemscores++
-                            document.getElementById('systemscore').innerHTML = "system score : " + systemscores;
-                        }
 
+                    if (userinput == systeminput) {
+                        document.getElementById('desider').innerHTML = "both values are same :)"
 
                     } else {
-                        let min = Math.min(userinput, systeminput);
-                        if (min == userinput) {
-                            document.getElementById('desider').innerHTML = "This Time Minimum <br><br>" + "So The Winner is " + name + " : " + min
-                            userscores++
-                            document.getElementById('userscore').innerHTML = "your score : " + userscores;
+
+                        if (randomno == 0) {
+                            let max = Math.max(userinput, systeminput);
+                            if (max == userinput) {
+                                document.getElementById('desider').innerHTML = "This Time Maximum <br><br>" + "So The Winner is " + name + "</span> : " + max
+                                userscores++
+                                document.getElementById('userscore').innerHTML = "your score : " + userscores;
+
+                            } else {
+                                document.getElementById('desider').innerHTML = "This Time Maximum <br><br>" + "So The Winner is  computerji is : " + max
+                                systemscores++
+                                document.getElementById('systemscore').innerHTML = "system score : " + systemscores;
+                            }
+
+
                         } else {
-                            document.getElementById('desider').innerHTML = "This Time Minimum <br><br>" + "So The Winner is  computerji  : " + min
-                            systemscores++
-                            document.getElementById('systemscore').innerHTML = "system score : " + systemscores;
+                            let min = Math.min(userinput, systeminput);
+                            if (min == userinput) {
+                                document.getElementById('desider').innerHTML = "This Time Minimum <br><br>" + "So The Winner is " + name + " : " + min
+                                userscores++
+                                document.getElementById('userscore').innerHTML = "your score : " + userscores;
+                            } else {
+                                document.getElementById('desider').innerHTML = "This Time Minimum <br><br>" + "So The Winner is  computerji  : " + min
+                                systemscores++
+                                document.getElementById('systemscore').innerHTML = "system score : " + systemscores;
+                            }
+
                         }
-
+                        document.getElementById('input').value = ""
                     }
-                    document.getElementById('input').value = ""
-                }
 
+                }
             }
 
         }
