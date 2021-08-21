@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guessing number</title>
+    <style>
+        * {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            padding: 0%;
+        }
+        
+        body {
+            background-image: linear-gradient( #F7A9D6, #858EF8, #E7D1FF);
+            background-size: cover;
+        }
+        
+        #container {
+            margin-left: 30rem;
+        }
+        
+        input {
+            margin: 1rem;
+            margin-left: 10%;
+            height: 1cm;
+            box-shadow: 2px 2px 4px rgb(19, 17, 17);
+        }
+        
+        button {
+            margin-left: 10%;
+            text-align: center;
+            padding: 0.5rem;
+        }
+        
+        #userscore,
+        #systemscore {
+            width: 3cm;
+            background-color: yellow;
+            display: inline-block;
+            text-align: center;
+            padding: 0.2cm;
+            margin: 1cm;
+        }
+        
+        #resultline1,
+        #resultline2 {
+            font-size: 1rem;
+        }
+        
+        #start {
+            background-color: rgb(23, 245, 16);
+        }
+        
+        #end {
+            margin-left: 20%;
+            margin-top: 10%;
+            background-color: red;
+        }
+        
+        @media only screen and (max-width: 600px) {
+            #container {
+                margin-left: 3rem;
+            }
+            input {
+                margin: 1rem;
+                margin-left: 20%;
+                height: 1cm;
+                box-shadow: 2px 2px 4px rgb(19, 17, 17);
+            }
+            button {
+                margin-left: 18%;
+                text-align: center;
+                padding: 0.5rem;
+            }
+            #userscore,
+            #systemscore {
+                width: 3cm;
+                background-color: yellow;
+                display: inline-block;
+                text-align: center;
+                padding: 0.2cm;
+            }
+            #resultline1,
+            #resultline2 {
+                font-size: 1rem;
+            }
+            #start {
+                background-color: rgb(23, 245, 16);
+            }
+            #end {
+                margin-left: 30%;
+                margin-top: 20%;
+                background-color: red;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="container">
+
+        <h4>To start Game Enter Your Name </h4>
+        <input type="text" id="name">
+
+        <h4>Enter Number Between [ 0 to 100 ]</h4>
+        <input type="number" id="input">
+
+        <br>
+
+        <button onclick="description()">Guide</button>
+        <button onclick="askinput()" id="start">start</button>
+
+        <br>
+
+        <p id="userscore">Your Score :0</p>
+        <p id="systemscore">System score:0</p>
+        <p id="resultline1"></p>
+        <p id="resultline2"></p>
+        <p id="desider"></p>
+
+        <button id="end" onclick="location.reload()">End Game</button>
+    </div>
+
+
+
+    <script>
+        function description() {
+            alert("1)Enter your name and number then click start to play.\n2)you can play as many time again by entering number  and then click start.\n 3) By clicking end button the game will refresh then scores will erase so click only when you want to end game ")
+        }
+
+        var userscores = 0
+        var systemscores = 0
+
+        function askinput() {
+
+
+            let name = document.getElementById('name').value;
+            document.getElementById('name').readOnly = true;
+
+            let userinput = document.getElementById('input').value;
+            if (userinput == "") {
+                alert("ent6er number")
+            } else {
+                document.getElementById('resultline1').innerHTML = name + " your number is : " + userinput
+                let systeminput = Math.floor(Math.random() * 101);
+                document.getElementById('resultline2').innerHTML = "Computerji's number is : " + systeminput
+
+                let randomno = Math.floor(Math.random() * 2);
+
+
+                if (userinput == systeminput) {
+                    document.getElementById('desider').innerHTML = "both values are same :)"
+
+                } else {
+
+                    if (randomno == 0) {
+                        let max = Math.max(userinput, systeminput);
+                        if (max == userinput) {
+                            document.getElementById('desider').innerHTML = "This Time Maximum <br><br>" + "So The Winner is " + name + "</span> : " + max
+                            userscores++
+                            document.getElementById('userscore').innerHTML = "your score : " + userscores;
+
+                        } else {
+                            document.getElementById('desider').innerHTML = "This Time Maximum <br><br>" + "So The Winner is  computerji is : " + max
+                            systemscores++
+                            document.getElementById('systemscore').innerHTML = "system score : " + systemscores;
+                        }
+
+
+                    } else {
+                        let min = Math.min(userinput, systeminput);
+                        if (min == userinput) {
+                            document.getElementById('desider').innerHTML = "This Time Minimum <br><br>" + "So The Winner is " + name + " : " + min
+                            userscores++
+                            document.getElementById('userscore').innerHTML = "your score : " + userscores;
+                        } else {
+                            document.getElementById('desider').innerHTML = "This Time Minimum <br><br>" + "So The Winner is  computerji  : " + min
+                            systemscores++
+                            document.getElementById('systemscore').innerHTML = "system score : " + systemscores;
+                        }
+
+                    }
+                    document.getElementById('input').value = ""
+                }
+
+            }
+
+        }
+    </script>
+
+
+</body>
+
+</html>
