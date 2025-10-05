@@ -5,199 +5,92 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guessing number</title>
-    <style>
-        * {
-            font-family: Georgia, 'Times New Roman', Times, serif;
-            padding: 0%;
-        }
-        
-        body {
-            background-image: linear-gradient( #F7A9D6, #858EF8, #E7D1FF);
-            background-size: cover;
-        }
-        
-        #container {
-            margin-left: 30rem;
-        }
-        
-        input {
-            margin: 1rem;
-            margin-left: 10%;
-            height: 1cm;
-            box-shadow: 2px 2px 4px rgb(19, 17, 17);
-        }
-        
-        button {
-            margin-left: 10%;
-            text-align: center;
-            padding: 0.5rem;
-        }
-        
-        #userscore,
-        #systemscore {
-            width: 3cm;
-            background-color: yellow;
-            display: inline-block;
-            text-align: center;
-            padding: 0.2cm;
-            margin-left: 0.8cm;
-        }
-        
-        #resultline1,
-        #resultline2 {
-            font-size: 1rem;
-            font-weight: bolder;
-        }
-        
-        #start {
-            background-color: rgb(23, 245, 16);
-        }
-        
-        #end {
-            margin-left: 15%;
-            margin-top: 10%;
-            background-color: red;
-        }
-        
-        @media only screen and (max-width: 600px) {
-            #container {
-                margin-left: 3rem;
-            }
-            input {
-                margin: 1rem;
-                margin-left: 20%;
-                height: 1cm;
-                box-shadow: 2px 2px 4px rgb(19, 17, 17);
-            }
-            button {
-                margin-left: 18%;
-                text-align: center;
-                padding: 0.5rem;
-            }
-            #userscore,
-            #systemscore {
-                width: 3cm;
-                background-color: yellow;
-                display: inline-block;
-                text-align: center;
-                padding: 0.2cm;
-            }
-            #resultline1,
-            #resultline2 {
-                font-size: 1rem;
-                font-weight: bolder;
-            }
-            #start {
-                background-color: rgb(23, 245, 16);
-            }
-            #end {
-                margin-left: 30%;
-                margin-top: 20%;
-                background-color: red;
-            }
-        }
-    </style>
+    <title>Guess the Number</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="A modern guessing number game with difficulties, hints, and high scores.">
 </head>
 
 <body>
+    <div class="app">
+        <header class="app__header">
+            <h1 class="app__title">Guess the Number</h1>
+            <p class="app__subtitle">Pick a difficulty, then try to guess the secret number!</p>
+        </header>
 
-    <div id="container">
-        <h2>Guessing number game <br> Play with computerji</h2>
-        <h4>To start Game Enter Your Name </h4>
-        <input type="text" id="name">
+        <main class="game">
+            <section class="game__controls" aria-labelledby="setup-heading">
+                <h2 id="setup-heading" class="visually-hidden">Game setup</h2>
+                <div class="field">
+                    <label for="playerName">Your name</label>
+                    <input id="playerName" type="text" placeholder="Enter your name" autocomplete="name">
+                </div>
+                <div class="field">
+                    <label for="difficulty">Difficulty</label>
+                    <select id="difficulty">
+                        <option value="easy">Easy (1–50)</option>
+                        <option value="medium" selected>Medium (1–100)</option>
+                        <option value="hard">Hard (1–500)</option>
+                    </select>
+                </div>
+                <div class="toggles">
+                    <label class="toggle">
+                        <input id="hints" type="checkbox" checked>
+                        <span>Enable hints</span>
+                    </label>
+                </div>
+                <button id="startBtn" class="btn btn--primary">Start Game</button>
+            </section>
 
-        <h4>Enter Number Between [ 0 to 500 ]</h4>
-        <input type="number" id="input">
+            <section class="game__play" aria-labelledby="play-heading">
+                <h2 id="play-heading" class="visually-hidden">Play area</h2>
+                <div class="range" id="rangeText">Range: 1–100</div>
+                <div class="attempts" id="attemptsText">Attempts left: 10</div>
 
-        <br>
+                <div class="guess-row">
+                    <input id="guessInput" type="number" inputmode="numeric" placeholder="Enter your guess" disabled>
+                    <button id="guessBtn" class="btn" disabled>Guess</button>
+                </div>
 
-        <button onclick="description()">Guide</button>
-        <button onclick="askinput()" id="start">start</button>
+                <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+                <div class="history">
+                    <h3>Your guesses</h3>
+                    <ul id="historyList" class="history__list"></ul>
+                </div>
 
-        <br>
+                <div class="actions">
+                    <button id="newRoundBtn" class="btn btn--ghost" disabled>New Round</button>
+                    <button id="resetBtn" class="btn btn--danger">Reset Game</button>
+                </div>
+            </section>
 
-        <p id="userscore">Your Score :0</p>
-        <p id="systemscore">System score:0</p>
-        <p id="resultline1"></p>
-        <p id="resultline2"></p>
-        <p id="desider"></p>
+            <aside class="game__aside">
+                <div class="scorecard">
+                    <h3>High score</h3>
+                    <p class="scorecard__line">Player: <span id="scorePlayer">—</span></p>
+                    <p class="scorecard__line">Difficulty: <span id="scoreDifficulty">—</span></p>
+                    <p class="scorecard__line">Best attempts: <span id="scoreBest">—</span></p>
+                </div>
+                <details class="guide">
+                    <summary>How to play</summary>
+                    <ol>
+                        <li>Enter your name, select a difficulty, and press Start.</li>
+                        <li>Guess a number in the shown range. You have limited attempts.</li>
+                        <li>Hints say Higher/Lower and Hot/Warm/Cold if enabled.</li>
+                        <li>Win in the fewest attempts to set a new high score!</li>
+                    </ol>
+                </details>
+            </aside>
+        </main>
 
-        <button id="end" onclick="location.reload()">End Game</button>
+        <footer class="app__footer">
+            <small>Built with ❤️ for fun. Enjoy guessing!</small>
+        </footer>
     </div>
 
-
-
-    <script>
-        function description() {
-            alert("1)Enter your name and number then click start to play.\n2)you can play as many time again by entering number  and then click start.\n 3) By clicking end button the game will refresh then scores will erase so click only when you want to end game ")
-        }
-
-        var userscores = 0
-        var systemscores = 0
-
-        function askinput() {
-
-
-            let name = document.getElementById('name').value;
-            document.getElementById('name').readOnly = true;
-
-            let userinput = document.getElementById('input').value;
-            if (userinput > 500) {
-                alert("enter number between 0 to 500")
-            } else {
-                if (userinput == "") {
-                    alert("enter number")
-                } else {
-                    document.getElementById('resultline1').innerHTML = name + " your number is : " + userinput
-                    let systeminput = Math.floor(Math.random() * 501);
-                    document.getElementById('resultline2').innerHTML = "Computerji's number is : " + systeminput
-
-                    let randomno = Math.floor(Math.random() * 2);
-
-
-                    if (userinput == systeminput) {
-                        document.getElementById('desider').innerHTML = "both values are same :)"
-
-                    } else {
-
-                        if (randomno == 0) {
-                            let max = Math.max(userinput, systeminput);
-                            if (max == userinput) {
-                                document.getElementById('desider').innerHTML = "Umpire decision  Maximum <br><br>" + "So The Winner is " + name + "</span> : " + max
-                                userscores++
-                                document.getElementById('userscore').innerHTML = "your score : " + userscores;
-
-                            } else {
-                                document.getElementById('desider').innerHTML = "Umpire decision  Maximum <br><br>" + "So The Winner is  computerji is : " + max
-                                systemscores++
-                                document.getElementById('systemscore').innerHTML = "system score : " + systemscores;
-                            }
-
-
-                        } else {
-                            let min = Math.min(userinput, systeminput);
-                            if (min == userinput) {
-                                document.getElementById('desider').innerHTML = "Umpire decision  Minimum <br><br>" + "So The Winner is " + name + " : " + min
-                                userscores++
-                                document.getElementById('userscore').innerHTML = "your score : " + userscores;
-                            } else {
-                                document.getElementById('desider').innerHTML = "Umpire decision  Minimum <br><br>" + "So The Winner is  computerji  : " + min
-                                systemscores++
-                                document.getElementById('systemscore').innerHTML = "system score : " + systemscores;
-                            }
-
-                        }
-                        document.getElementById('input').value = ""
-                    }
-
-                }
-            }
-
-        }
-    </script>
-
-
+    <script src="script.js"></script>
 </body>
 
 </html>
